@@ -3,7 +3,7 @@
 }
 
 .height-custom{
-  min-height: 65px;
+  min-height: 10vh;
 }
 
 .div-custom-height{
@@ -16,4 +16,11 @@
   justify-content: space-around;
   align-items: center;
   color: #fff;
+}
+
+.shadow-custom{
+  border: none;
+  border-radius: 8px;
+  box-shadow: 4px 0px 16px rgba(16, 30, 115, 0.7);
+  font-weight: 700;
 }
