@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 //import PropTypes from 'prop-types';
-import SlotData from '../DummyData';
+import {SlotData} from '../DummyData';
 
 const BookSlot = () => {
   const[slotId, setSlotId] = useState('');
@@ -45,25 +45,37 @@ const BookSlot = () => {
     setDescription('');
   }
 
+  const SelectBtn = ({id, name, makeTime}) =>{
+    if(slotId !== id){
+      return (
+        <button type="button" className="btn btn-success"
+          onClick={() => selectSlot(id, name, makeTime)}>
+          Select
+        </button>
+      );
+    }
+    else{
+      return("Selected");
+    }
+  }
+
   return (
     <div className="row bg-info">
       <div className="col-12 col-md-6 p-3">
-        <h3 className="mb-5 text-center">Select a slot from below</h3>
+        <h3 className="mb-1 text-center">Select a slot from below</h3>
+        <h6 className="mb-3 text-center">(Note : The selected slot will be reflected in the form.)</h6>
 
         {SlotData.map(slot =>{
           let makeTime = slot.startTime + ' - ' + slot.endTime
           if(slot.isActive){
             return(
-              <div key={slot.id} className="mb-3 p-3 w-75 mx-auto bg-warning shadow-custom">
-                {slot.name}{' '} : {' '}{makeTime}
+              <div key={slot.id} className="mb-3 p-3 w-75 mx-auto bg-warning shadow-custom flex-custom">
+                <div>{slot.name}{' '} : {' '}{makeTime}</div>
 
-                {slot.isBooked ?
-                  <button type="button" className="btn btn-success ms-5"
-                    onClick={() => selectSlot(slot.id, slot.name, makeTime)}>
-                    Select
-                  </button>
+                {!slot.isBooked ?
+                  <SelectBtn id={slot.id} name={slot.name}  makeTime={makeTime}/>
                   :
-                  <h5 style={{display: 'inline'}}>
+                  <h5>
                     <span className="badge rounded-pill bg-danger ms-5">Booked</span>
                   </h5>
                 }
@@ -78,9 +90,9 @@ const BookSlot = () => {
 
       <div className="col-12 col-md-6 p-3">
         <h3 className="mb-1 text-center">Submit this form to book you slot</h3>
-        <h6 className="mb-3 text-center">Note : Don't forget to select your slot first.</h6>
+        <h6 className="mb-3 text-center">(Note : Don't forget to select your slot first.)</h6>
 
-        <div className="bg-warning shadow-custom mx-auto w-75 p-4 mt-4 mb-3">
+        <div className="bg-warning shadow-custom mx-auto p-4 mt-4 mb-3" style={{width: "90%"}}>
           <form onSubmit={handleSubmit}>
 
             <div className="mb-3">

@@ -24,3 +24,10 @@
   box-shadow: 4px 0px 16px rgba(16, 30, 115, 0.7);
   font-weight: 700;
 }
+
+.flex-custom{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}

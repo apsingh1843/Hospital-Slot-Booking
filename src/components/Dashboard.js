@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 //import PropTypes from 'prop-types';
 import BookSlot from './BookSlot';
-import ViewSlot from './ViewSlot';
+import ViewBookings from './ViewBookings';
 
 const TabsBtn1 = ({ text, onClickFunction }) => {
   return (
@@ -40,7 +40,7 @@ const Dashboard = () => {
     <div className="container-fluid bg-warning">
       <div className="text-center pt-3 pb-4">
         <h1 className="mb-3">Your Dashboard</h1>
-        <div className="btn-group w-50" role="group">
+        <div className="btn-group w-75" role="group">
           {book ? (
             <TabsBtn2 text="Book a Slot" />
           ) : (
@@ -55,7 +55,7 @@ const Dashboard = () => {
       </div>
 
       {book ? <BookSlot /> : <></>}
-      {view ? <ViewSlot/> : <></>}
+      {view ? <ViewBookings/> : <></>}
 
     </div>
   )

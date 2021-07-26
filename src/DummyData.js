@@ -1,4 +1,4 @@
-const SlotData = [
+export const SlotData = [
   {
     id : 'SL001',
     name : 'Slot 1',
@@ -64,4 +64,90 @@ const SlotData = [
     isActive : true,
   },
 ]
-export default SlotData;
+
+export const BookingsData = [
+  {
+    id: 'BO001',
+    slotName: 'Slot 1',
+    slotTime: '10:00:00 - 10:30:00',
+    patientName: 'test1',
+    bearerName: 'test bearer1',
+    patientAge: '40',
+    mobile: '12345678',
+    description: 'test description',
+    reqCancel: 'NO',
+    isCompleted: true,
+    bookingTime: '',
+    message: ''
+  },
+  {
+    id: 'BO002',
+    slotName: 'Slot 2',
+    slotTime: '11:00:00 - 11:30:00',
+    patientName: 'test2',
+    bearerName: 'test bearer2',
+    patientAge: '50',
+    mobile: '12345678',
+    description: 'test description',
+    reqCancel: 'AC',
+    isCompleted: true,
+    bookingTime: '',
+    message: 'Your request for cancelling this booking was accepted.'
+  },
+  {
+    id: 'BO003',
+    slotName: 'Slot 4',
+    slotTime: '12:00:00 - 12:30:00',
+    patientName: 'test2',
+    bearerName: 'test bearer2',
+    patientAge: '40',
+    mobile: '12345678',
+    description: 'test description',
+    reqCancel: 'DE',
+    isCompleted: false,
+    bookingTime: '',
+    message: 'your request for cancelling this booking was rejected.'
+  },
+  {
+    id: 'BO004',
+    slotName: 'Slot 6',
+    slotTime: '13:00:00 - 13:30:00',
+    patientName: 'test4',
+    bearerName: 'test bearer4',
+    patientAge: '40',
+    mobile: '12345678',
+    description: 'test description',
+    reqCancel: 'NO',
+    isCompleted: false,
+    bookingTime: '',
+    message: '',
+  },
+  {
+    id: 'BO005',
+    slotName: 'Slot 10',
+    slotTime: '16:00:00 - 16:30:00',
+    patientName: 'test5',
+    bearerName: 'test bearer5',
+    patientAge: '20',
+    mobile: '12345678',
+    description: 'test description',
+    reqCancel: 'RE',
+    isCompleted: false,
+    bookingTime: '',
+    message: 'you have requested to cancel this booking.',
+  },
+  {
+    id: 'BO006',
+    slotName: 'Slot 7',
+    slotTime: '14:00:00 - 14:30:00',
+    patientName: 'test6',
+    bearerName: 'test bearer6',
+    patientAge: '20',
+    mobile: '12345678',
+    description: 'test description dsgvdzvdz zdvdzvgsg dvsdgewwgwegge',
+    reqCancel: 'DE',
+    isCompleted: true,
+    bookingTime: '',
+    message: 'your request for cancelling this booking was rejected.',
+  }
+]
