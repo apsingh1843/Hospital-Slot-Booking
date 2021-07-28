@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import Loader from './Loader';
 import { connect } from 'react-redux';
 import { getSlots } from '../redux/actions/SlotActions';
+import { createBooking } from '../redux/actions/BookingActions';
 
-const BookSlot = ({ getSlots, isLoading, slots }) => {
+const BookSlot = ({ getSlots, isLoading, slots, createBooking }) => {
   const[slotId, setSlotId] = useState('');
   const[slotName, setSlotName] = useState('');
   const[slotTime, setSlotTime] = useState('');
@@ -36,15 +37,16 @@ const BookSlot = ({ getSlots, isLoading, slots }) => {
       mobile: mobile,
       description: description
     }
+    createBooking(booking);
     console.log(booking);
-    setSlotId('');
-    setSlotName('');
-    setSlotTime('');
-    setPatientName('');
-    setBearerName('');
-    setPatientAge('');
-    setMobile('');
-    setDescription('');
+    // setSlotId('');
+    // setSlotName('');
+    // setSlotTime('');
+    // setPatientName('');
+    // setBearerName('');
+    // setPatientAge('');
+    // setMobile('');
+    // setDescription('');
   }
 
   const SelectBtn = ({id, name, makeTime}) =>{
@@ -60,19 +62,15 @@ const BookSlot = ({ getSlots, isLoading, slots }) => {
       return("Selected");
     }
   }
-
-  if(isLoading){
-    return(
-      <Loader />
-    );
-  }
-  else{
-    return (
-      <div className="row bg-info">
-        <div className="col-12 col-md-6 p-3">
-          <h3 className="mb-1 text-center">Select a slot from below</h3>
-          <h6 className="mb-3 text-center">(Note : The selected slot will be reflected in the form.)</h6>
-
+  const SlotList = () =>{
+    if(isLoading){
+      return(
+        <Loader />
+      )
+    }
+    else{
+      return(
+        <>
           {slots.map(slot =>{
             let makeTime = slot.startTime + ' - ' + slot.endTime
             if(slot.isActive){
@@ -94,127 +92,139 @@ const BookSlot = ({ getSlots, isLoading, slots }) => {
               return null;
             }
           })}
-        </div>
+        </>
+      )
+    }
+  }
 
-        <div className="col-12 col-md-6 p-3">
-          <h3 className="mb-1 text-center">Submit this form to book you slot</h3>
-          <h6 className="mb-3 text-center">(Note : Don't forget to select your slot first.)</h6>
+  return (
+    <div className="row bg-info">
+      <div className="col-12 col-md-6 p-3">
+        <h3 className="mb-1 text-center">Select a slot from below</h3>
+        <h6 className="mb-3 text-center">(Note : The selected slot will be reflected in the form.)</h6>
 
-          <div className="bg-warning shadow-custom mx-auto p-4 mt-4 mb-3" style={{width: "90%"}}>
-            <form onSubmit={handleSubmit}>
+        <SlotList />
+      </div>
 
-              <div className="mb-3">
-                <label htmlFor="slotName" className="form-label">Selected Slot No.</label>
-                <input
-                  type="text"
-                  placeholder="Slot No."
-                  className="form-control"
-                  id="slotName"
-                  name="slotName"
-                  value={slotName}
-                  readOnly
-                />
-              </div>
+      <div className="col-12 col-md-6 p-3">
+        <h3 className="mb-1 text-center">Submit this form to book you slot</h3>
+        <h6 className="mb-3 text-center">(Note : Don't forget to select your slot first.)</h6>
 
-              <div className="mb-3">
-                <label htmlFor="slotTime" className="form-label">Selected Slot Time</label>
-                <input
-                  type="text"
-                  placeholder="Slot Time"
-                  className="form-control"
-                  id="slotTime"
-                  name="slotTime"
-                  value={slotTime}
-                  readOnly
-                />
-              </div>
+        <div className="bg-warning shadow-custom mx-auto p-4 mt-4 mb-3" style={{width: "90%"}}>
+          <form onSubmit={handleSubmit}>
 
-              <div className="mb-3">
-                <label htmlFor="patientName" className="form-label">Patient Name *</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Patient Name"
-                  id="patientName"
-                  name="patientName"
-                  value={patientName}
-                  onChange={(e) => setPatientName(e.target.value)}
-                  required
-                />
-              </div>
+            <div className="mb-3">
+              <label htmlFor="slotName" className="form-label">Selected Slot No.</label>
+              <input
+                type="text"
+                placeholder="Slot No."
+                className="form-control"
+                id="slotName"
+                name="slotName"
+                value={slotName}
+                readOnly
+              />
+            </div>
 
-              <div className="mb-3">
-                <label htmlFor="bearerName" className="form-label">
-                  Bearer Name <small className="text-muted">(person accompanying patient)</small> *
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Bearer Name"
-                  id="bearerName"
-                  name="bearerName"
-                  value={bearerName}
-                  onChange={(e) => setBearerName(e.target.value)}
-                  required
-                />
-              </div>
+            <div className="mb-3">
+              <label htmlFor="slotTime" className="form-label">Selected Slot Time</label>
+              <input
+                type="text"
+                placeholder="Slot Time"
+                className="form-control"
+                id="slotTime"
+                name="slotTime"
+                value={slotTime}
+                readOnly
+              />
+            </div>
 
-              <div className="mb-3">
-                <label htmlFor="patientAge" className="form-label">Patient Age *</label>
-                <input
-                  type="number"
-                  className="form-control"
-                  placeholder="Patient Age"
-                  id="patientAge"
-                  name="patientAge"
-                  value={patientAge}
-                  onChange={(e) => setPatientAge(e.target.value)}
-                  required
-                />
-              </div>
+            <div className="mb-3">
+              <label htmlFor="patientName" className="form-label">Patient Name *</label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Patient Name"
+                id="patientName"
+                name="patientName"
+                value={patientName}
+                onChange={(e) => setPatientName(e.target.value)}
+                required
+              />
+            </div>
 
-              <div className="mb-3">
-                <label htmlFor="mobile" className="form-label">Mobile Number *</label>
-                <input
-                  type="number"
-                  className="form-control"
-                  placeholder="Mobile Number"
-                  id="mobile"
-                  name="mobile"
-                  value={mobile}
-                  onChange={(e) => setMobile(e.target.value)}
-                  required
-                />
-              </div>
+            <div className="mb-3">
+              <label htmlFor="bearerName" className="form-label">
+                Bearer Name <small className="text-muted">(person accompanying patient)</small> *
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Bearer Name"
+                id="bearerName"
+                name="bearerName"
+                value={bearerName}
+                onChange={(e) => setBearerName(e.target.value)}
+                required
+              />
+            </div>
 
-              <div className="mb-3">
-                <label htmlFor="description" className="form-label">Description
-                  <small className="text-muted">(if any)</small>
-                </label>
-                <textarea
-                  row={3}
-                  className="form-control"
-                  id="description"
-                  name="description"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                />
-              </div>
-              <small className="text-muted">' * ' marked fields are required </small><br/>
+            <div className="mb-3">
+              <label htmlFor="patientAge" className="form-label">Patient Age *</label>
+              <input
+                type="number"
+                className="form-control"
+                placeholder="Patient Age"
+                id="patientAge"
+                name="patientAge"
+                value={patientAge}
+                onChange={(e) => setPatientAge(e.target.value)}
+                required
+              />
+            </div>
 
-              <button type="submit" className="btn btn-primary mt-3">Submit</button>
-            </form>
-          </div>
+            <div className="mb-3">
+              <label htmlFor="mobile" className="form-label">Mobile Number *</label>
+              <input
+                type="number"
+                className="form-control"
+                placeholder="Mobile Number"
+                id="mobile"
+                name="mobile"
+                value={mobile}
+                onChange={(e) => setMobile(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="mb-3">
+              <label htmlFor="description" className="form-label">Description
+                <small className="text-muted">(if any)</small>
+              </label>
+              <textarea
+                row={3}
+                className="form-control"
+                id="description"
+                name="description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </div>
+            <small className="text-muted">' * ' marked fields are required </small><br/>
+
+            <button type="submit" className="btn btn-primary mt-3">Submit</button>
+          </form>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 BookSlot.propTypes = {
   isLoading : PropTypes.bool.isRequired,
   slots : PropTypes.array.isRequired,
   getSlots : PropTypes.func.isRequired,
+  createBooking : PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
@@ -222,4 +232,4 @@ const mapStateToProps = state => ({
   slots: state.slots.slots,
 });
 
-export default connect(mapStateToProps, { getSlots })(BookSlot);
+export default connect(mapStateToProps, { getSlots, createBooking })(BookSlot);

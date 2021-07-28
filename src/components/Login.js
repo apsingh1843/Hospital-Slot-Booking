@@ -1,40 +1,41 @@
 import React, { useState } from 'react';
-//import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+//import { loginUser } from '../redux/actions/AuthActions';
 
-const Login = () => {
+const Login = ({isLoading, isAuthenticated}) => {
   const[email, setEmail] = useState('');
-  const[phone, setPhone] = useState('');
+  const[username, setUsername] = useState('');
   const[password, setPassword] = useState('');
-
-  const[method, setMethod] = useState(true);
 
   const handleSubmit = (e) =>{
     e.preventDefault();
     let user = {
-      ...(method && {email: email}),
-      ...(!method && {phone: phone}),
+      email: email,
+      username: username,
       password: password
     }
     console.log(user);
     setEmail('');
     setPassword('');
-    setPhone('');
+    setUsername('');
   }
 
-  return (
-    <div className="container-fluid bg-info" style={{minHeight:"90vh"}}>
-      <div className="row">
-        <div className="col-10 offset-1 col-md-6 offset-md-3 col-lg-4 offset-lg-4
-          p-4 mt-3 mb-3 mt-sm-5 bg-warning shadow-custom">
-          <h4 className="text-center mb-3">Login to your Account</h4>
-          <form onSubmit={handleSubmit}>
-            <div className="text-center">
-              <button type="button" className="btn btn-success w-75 mb-3" onClick={() => setMethod(!method)}>
-                {method ? 'Login with Mobile Number' : 'Login with Email'}
-              </button>
-            </div>
+  if(isAuthenticated){
+    return (
+      <Redirect to="/dashboard" />
+    )
+  }
+  else{
+    return (
+      <div className="container-fluid bg-info" style={{minHeight:"90vh"}}>
+        <div className="row">
+          <div className="col-10 offset-1 col-md-6 offset-md-3 col-lg-4 offset-lg-4
+            p-4 mt-3 mb-3 mt-sm-5 bg-warning shadow-custom">
+            <h4 className="text-center mb-3">Login to your Account</h4>
+            <form onSubmit={handleSubmit}>
 
-            {method ?
               <div className="mb-3">
                 <label htmlFor="email" className="form-label">Email address</label>
                 <input
@@ -48,41 +49,39 @@ const Login = () => {
                   required
                 />
               </div>
-              :
+
               <div className="mb-3">
-                <label htmlFor="phone" className="form-label">Mobile Number</label>
+                <label htmlFor="password" className="form-label">Password</label>
                 <input
-                  type="number"
-                  placeholder="Enter your Mobile Number"
+                  type="password"
+                  placeholder="Enter your Password"
                   className="form-control"
-                  id="phone"
-                  name="phone"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
+                  id="password"
+                  name="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   required
                 />
-              </div>}
+              </div>
 
-            <div className="mb-3">
-              <label htmlFor="password" className="form-label">Password</label>
-              <input
-                type="password"
-                placeholder="Enter your Password"
-                className="form-control"
-                id="password"
-                name="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </div>
-
-            <button type="submit" className="btn btn-primary">Login</button>
-          </form>
+              <button type="submit" className="btn btn-primary">Login</button>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
 
-export default Login;
+Login.propTypes = {
+  isLoading : PropTypes.bool.isRequired,
+  isAuthenticated : PropTypes.bool.isRequired,
+  //loginUser: PropTypes.func.isRequired
+}
+
+const mapStateToProps = state => ({
+  isLoading: state.auth.isLoading,
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps)(Login);

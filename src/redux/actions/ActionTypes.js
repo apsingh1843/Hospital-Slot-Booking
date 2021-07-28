@@ -6,9 +6,6 @@ export const GET_BOOKINGS = 'GET_BOOKINGS';
 export const BOOKINGS_LOADING = 'BOOKINGS_LOADING';
 export const BOOKINGS_FAIL = 'BOOKINGS_FAIL';
 
-export const USER_LOGGEDIN = 'USER_LOGGEDIN';
-export const USER_NOT_LOGGEDIN = 'USER_NOT_LOGGEDIN';
-
 export const USER_LOADING = 'USER_LOADING';
 export const USER_LOADED = 'USER_LOADED';
 export const AUTH_ERROR = 'AUTH_ERROR';

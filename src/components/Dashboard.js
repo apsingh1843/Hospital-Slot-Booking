@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import BookSlot from './BookSlot';
 import ViewBookings from './ViewBookings';
 
-const TabsBtn1 = ({ text, onClickFunction }) => {
+export const TabsBtn1 = ({ text, onClickFunction }) => {
   return (
     <>
       <button className="btn btn-light w-50" onClick={onClickFunction}>
@@ -13,7 +13,7 @@ const TabsBtn1 = ({ text, onClickFunction }) => {
   );
 }
 
-const TabsBtn2 = ({ text }) => {
+export const TabsBtn2 = ({ text }) => {
   return (
     <>
       <button className="btn btn-success w-50">

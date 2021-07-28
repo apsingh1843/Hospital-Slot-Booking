@@ -7,8 +7,6 @@ import {
   SIGNUP_FAIL,
   SIGNUP_SUCCESS,
   LOGOUT_SUCCESS,
-  USER_LOGGEDIN,
-  USER_NOT_LOGGEDIN
 } from '../actions/ActionTypes';
 
 const initialState = {
@@ -20,16 +18,6 @@ const initialState = {
 
 const AuthReducer = (state=initialState, action) => {
   switch (action.type) {
-    case USER_LOGGEDIN:
-      return {
-        ...state,
-        isAuthenticated: true,
-      };
-    case USER_NOT_LOGGEDIN:
-      return {
-        ...state,
-        isAuthenticated: false,
-      };
     case USER_LOADING:
       return {
         ...state,
@@ -55,13 +43,13 @@ const AuthReducer = (state=initialState, action) => {
       };
 
       case SIGNUP_SUCCESS:
-      localStorage.setItem('token', action.payload.account.token);
+      localStorage.setItem('token', action.payload.token);
         return{
           ...state,
-          ...action.payload,
+          user: action.payload.user,
           token: localStorage.getItem('token'),
           isLoading: false,
-          isAuthenticated: false
+          isAuthenticated: true
         };
 
     case SIGNUP_FAIL:
