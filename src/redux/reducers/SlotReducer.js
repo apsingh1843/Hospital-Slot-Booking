@@ -1,5 +1,4 @@
-//import Data from "../../components/shared/data";
-import { GET_SLOTS, SLOTS_LOADING, SLOTS_FAIL } from '../actions/ActionTypes';
+import { GET_SLOTS, SLOTS_LOADING, SLOTS_FAIL, CREATE_SLOTS } from '../actions/ActionTypes';
 
 const initialState = {
   isLoading: false,
@@ -24,6 +23,11 @@ const SlotReducer = (state=initialState, action) => {
         ...state,
         slots: [],
         isLoading: false,
+      }
+    case CREATE_SLOTS:
+      return {
+        ...state,
+        slots: [...state.slots, action.payload],
       }
     default:
       return state;

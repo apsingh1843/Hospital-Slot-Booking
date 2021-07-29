@@ -6,25 +6,16 @@ import {
   GET_ERROR_MSG
 } from '../actions/ActionTypes';
 import axios from 'axios';
-//import { returnErrors } from './errorActions';
+import { configToken } from './AuthActions';
+import { returnErrorMsg, returnSuccessMsg } from './MsgActions';
 
 const server = "http://127.0.0.1:8000"
 
-export const getBookings = () => dispatch => {
+// get user bookings
+export const getBookings = () => (dispatch, getState) => {
   dispatch(setBookingsLoading());
 
-  const token = localStorage.getItem('token');
-
-  const config={
-    headers: {
-      'Content-Type': 'application/json',
-    }
-  }
-  if(token){
-    config.headers['Authorization'] = `Token ${token}`;
-  }
-
-  axios.get(`${server}/api/bookings/`,config)
+  axios.get(`${server}/api/bookings/`,configToken(getState))
   .then(res => {
     console.log(res.data);
     dispatch({
@@ -38,30 +29,69 @@ export const getBookings = () => dispatch => {
   });
 };
 
+
 export const setBookingsLoading = () => {
   return {
     type: BOOKINGS_LOADING
   };
 };
 
-export const createBooking = (booking) => dispatch => {
 
-  const token = localStorage.getItem('token');
+// create booking
+export const createBooking = (booking) => (dispatch, getState) => {
 
   const body = JSON.stringify(booking);
 
-  const config={
-    headers: {
-      'Content-Type': 'application/json',
-    }
-  }
-  if(token){
-    config.headers['Authorization'] = `Token ${token}`;
-  }
-
-  axios.post(`${server}/api/bookings/`, body, config)
+  axios.post(`${server}/api/bookings/`, body, configToken(getState))
   .then(res => {
     console.log(res.data);
+    dispatch(returnSuccessMsg(res.data.msg, "booking_created"))
+  })
+  .catch(error =>{
+    console.log(error.response);
+    dispatch(returnErrorMsg(error.response.data.msg, "Could not book slot. Please fill the details properly."))
+  });
+};
+
+
+// request to cancel booking by user
+export const handleRequestCancel = (data) => (dispatch, getState) => {
+  const body = JSON.stringify(data);
+
+  axios.post(`${server}/api/reqcancel/`, body, configToken(getState))
+  .then(res => {
+    console.log(res.data);
+    dispatch(getBookings());
+  })
+  .catch(error =>{
+    console.log(error.response);
+  });
+};
+
+
+// response of staff
+export const handleResponseCancel = (data) => (dispatch, getState) => {
+  const body = JSON.stringify(data);
+
+  axios.post(`${server}/api/rescancel/`, body, configToken(getState))
+  .then(res => {
+    console.log(res.data);
+    dispatch(getBookings());
+  })
+  .catch(error =>{
+    console.log(error.response);
+  });
+};
+
+
+// mark as completed by staff
+export const markCompleted = (data) => (dispatch, getState) => {
+  const body = JSON.stringify(data);
+
+  axios.post(`${server}/api/completed/`, body, configToken(getState))
+  .then(res => {
+    console.log(res.data);
+    dispatch(getBookings());
   })
   .catch(error =>{
     console.log(error.response);

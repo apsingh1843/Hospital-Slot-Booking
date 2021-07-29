@@ -14,9 +14,7 @@ import {
 
 const auth_server = "http://127.0.0.1:8000/api/auth"
 
-// Check token and load user
-export const loadUser = () => (dispatch, getState) => {
-  dispatch({type: USER_LOADING});
+export const configToken = (getState) =>{
   const token = getState().auth.token;
 
   const config={
@@ -27,8 +25,14 @@ export const loadUser = () => (dispatch, getState) => {
   if(token){
     config.headers['Authorization'] = `Token ${token}`;
   }
+  return config;
+}
 
-  axios.get(`${auth_server}/user/`, config)
+// Check token and load user
+export const loadUser = () => (dispatch, getState) => {
+  dispatch({type: USER_LOADING});
+
+  axios.get(`${auth_server}/user/`, configToken(getState))
     .then(res =>{
       console.log(res.data);
       dispatch({

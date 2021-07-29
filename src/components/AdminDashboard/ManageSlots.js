@@ -2,9 +2,9 @@ import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import Loader from '../Loader';
 import { connect } from 'react-redux';
-import { getSlots } from '../../redux/actions/SlotActions';
+import { getSlots, createSlots, activateSlots, deactivateSlots } from '../../redux/actions/SlotActions';
 
-const ManageSlots = ({getSlots, isLoading, slots}) => {
+const ManageSlots = ({getSlots, createSlots, deactivateSlots, activateSlots, isLoading, slots}) => {
   const[slotName, setSlotName] = useState('');
   const[startTime, setStartTime] = useState('');
   const[endTime, setEndTime] = useState('');
@@ -21,29 +21,24 @@ const ManageSlots = ({getSlots, isLoading, slots}) => {
       endTime: endTime
     }
     console.log(slotData);
+    createSlots(slotData);
   }
 
 
   const SelectBtn = ({id, isActive}) =>{
-    function activateSlot(id){
-      console.log("activate")
-    }
-    function deactivateSlot(id){
-      console.log("deactivate")
-    }
 
     if(!isActive){
       return (
-        <button type="button" className="btn btn-success"
-          onClick={() => activateSlot(id)}>
+        <button type="button" className="btn btn-success btn-sm"
+          onClick={() => activateSlots(id)}>
           Activate Slot
         </button>
       );
     }
     else{
       return(
-        <button type="button" className="btn btn-danger"
-          onClick={() => deactivateSlot(id)}>
+        <button type="button" className="btn btn-danger btn-sm"
+          onClick={() => deactivateSlots(id)}>
           Deactivate Slot
         </button>
       );
@@ -83,15 +78,9 @@ const ManageSlots = ({getSlots, isLoading, slots}) => {
   return (
     <div className="row bg-info">
       <div className="col-12 col-md-6 p-3">
-        <h3 className="mb-3 text-center">View, Activate and Deactivate Slots</h3>
+        <h4 className="mb-3 text-center">Create Slot</h4>
 
-        <SlotList />
-      </div>
-
-      <div className="col-12 col-md-6 p-3">
-        <h3 className="mb-1 text-center">Create Slot</h3>
-
-        <div className="bg-warning shadow-custom mx-auto p-4 mt-4 mb-3" style={{width: "90%"}}>
+        <div className="bg-warning shadow-custom w-75 mx-auto p-4 mb-3" style={{width: "90%"}}>
           <form onSubmit={handleSubmit}>
             <div className="mb-3">
               <label htmlFor="slotName" className="form-label">Slot Name *</label>
@@ -135,10 +124,15 @@ const ManageSlots = ({getSlots, isLoading, slots}) => {
               />
             </div>
 
-
-            <button type="submit" className="btn btn-primary mt-3">Submit</button>
+            <button type="submit" className="btn btn-primary btn-sm mt-2">Create Slot</button>
           </form>
         </div>
+      </div>
+
+      <div className="col-12 col-md-6 p-3">
+        <h4 className="mb-3 text-center">View, Activate and Deactivate Slots</h4>
+
+        <SlotList />
       </div>
     </div>
   );
@@ -148,6 +142,9 @@ ManageSlots.propTypes = {
   isLoading : PropTypes.bool.isRequired,
   slots : PropTypes.array.isRequired,
   getSlots : PropTypes.func.isRequired,
+  createSlots : PropTypes.func.isRequired,
+  activateSlots : PropTypes.func.isRequired,
+  deactivateSlots : PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
@@ -155,4 +152,4 @@ const mapStateToProps = state => ({
   slots: state.slots.slots,
 });
 
-export default connect(mapStateToProps, { getSlots })(ManageSlots);
+export default connect(mapStateToProps, { getSlots, createSlots, deactivateSlots, activateSlots })(ManageSlots);

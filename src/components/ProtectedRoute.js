@@ -6,7 +6,7 @@ import Dashboard from './Dashboard';
 
 
 const ProtectedRoute = ({isLoading, isAuthenticated}) => {
-  if (isAuthenticated){
+  if (!isAuthenticated){
     return(
       <Route exact path="/dashboard" component={ Dashboard } />
     );

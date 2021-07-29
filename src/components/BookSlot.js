@@ -1,11 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import Loader from './Loader';
+import Message from './Message';
 import { connect } from 'react-redux';
 import { getSlots } from '../redux/actions/SlotActions';
 import { createBooking } from '../redux/actions/BookingActions';
+import { returnErrorMsg } from '../redux/actions/MsgActions';
 
-const BookSlot = ({ getSlots, isLoading, slots, createBooking }) => {
+const BookSlot = ({ getSlots, isLoading, slots, createBooking, returnErrorMsg }) => {
   const[slotId, setSlotId] = useState('');
   const[slotName, setSlotName] = useState('');
   const[slotTime, setSlotTime] = useState('');
@@ -27,18 +29,30 @@ const BookSlot = ({ getSlots, isLoading, slots, createBooking }) => {
 
   const handleSubmit = (e) =>{
     e.preventDefault();
-    let booking = {
-      slotId: slotId,
-      slotName: slotName,
-      slotTime: slotTime,
-      patientName: patientName,
-      bearerName: bearerName,
-      patientAge: patientAge,
-      mobile: mobile,
-      description: description
+    if(!slotId || !slotTime || !slotName){
+      returnErrorMsg("Please select a slot first.", "Invalid Details");
     }
-    createBooking(booking);
-    console.log(booking);
+    else if(patientAge <= 0 || patientAge > 110){
+      returnErrorMsg("Please enter a valid age", "Invalid Details");
+    }
+    else if(mobile < 0 || mobile.length !== 10 ){
+      returnErrorMsg("Please enter a valid mobile number", "Invalid Details");
+    }
+    else{
+      let booking = {
+        slotId: slotId,
+        slotName: slotName,
+        slotTime: slotTime,
+        patientName: patientName,
+        bearerName: bearerName,
+        patientAge: patientAge,
+        mobile: mobile,
+        description: description
+      }
+      createBooking(booking);
+    }
+
+    //console.log(booking);
     // setSlotId('');
     // setSlotName('');
     // setSlotTime('');
@@ -103,7 +117,14 @@ const BookSlot = ({ getSlots, isLoading, slots, createBooking }) => {
         <h3 className="mb-1 text-center">Select a slot from below</h3>
         <h6 className="mb-3 text-center">(Note : The selected slot will be reflected in the form.)</h6>
 
-        <SlotList />
+        {slots.length !== 0 ?
+          <SlotList />
+          :
+          <div className="shadow w-75 rounded bg-light mx-auto text-center text-primary pt-2"
+            style={{height: 50}}>
+            <b>Looks like there are no slots available for now !</b>
+          </div>
+        }
       </div>
 
       <div className="col-12 col-md-6 p-3">
@@ -211,8 +232,9 @@ const BookSlot = ({ getSlots, isLoading, slots, createBooking }) => {
               />
             </div>
             <small className="text-muted">' * ' marked fields are required </small><br/>
+              <Message />
 
-            <button type="submit" className="btn btn-primary mt-3">Submit</button>
+            <button type="submit" className="btn btn-primary mt-2">Submit</button>
           </form>
         </div>
       </div>
@@ -225,6 +247,7 @@ BookSlot.propTypes = {
   slots : PropTypes.array.isRequired,
   getSlots : PropTypes.func.isRequired,
   createBooking : PropTypes.func.isRequired,
+  returnErrorMsg : PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
@@ -232,4 +255,4 @@ const mapStateToProps = state => ({
   slots: state.slots.slots,
 });
 
-export default connect(mapStateToProps, { getSlots, createBooking })(BookSlot);
+export default connect(mapStateToProps, { getSlots, createBooking, returnErrorMsg })(BookSlot);

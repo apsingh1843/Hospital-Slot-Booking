@@ -1,4 +1,5 @@
 export const GET_SLOTS = 'GET_SLOTS';
+export const CREATE_SLOTS = 'CREATE_SLOTS';
 export const SLOTS_LOADING = 'SLOTS_LOADING';
 export const SLOTS_FAIL = 'SLOTS_FAIL';
 
