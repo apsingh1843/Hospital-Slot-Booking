@@ -19,8 +19,8 @@ There are two types of users : <br /><br />
     <li>Mark bookings as complete</li>
    </ul><br/>
   
-<img src="https://github.com/apsingh1843/Hospital-Slot-Booking/blob/main/readmeSS/home.PNG?raw=true" width="100" height="100"> <br/>
-<img src="https://github.com/apsingh1843/Hospital-Slot-Booking/blob/main/readmeSS/register.PNG?raw=true" width="100" height="100"> <br/>
+<img src="https://github.com/apsingh1843/Hospital-Slot-Booking/blob/main/readmeSS/home.PNG?raw=true" width="800" height="500"> <br/>
+<img src="https://github.com/apsingh1843/Hospital-Slot-Booking/blob/main/readmeSS/register.PNG?raw=true" width="600" height="800"> <br/>
 ![Register Page](https://github.com/apsingh1843/Hospital-Slot-Booking/blob/main/readmeSS/register.PNG?raw=true) <br/>
 ![Login Page](https://github.com/apsingh1843/Hospital-Slot-Booking/blob/main/readmeSS/login.PNG?raw=true) <br/>
 ![Slots](https://github.com/apsingh1843/Hospital-Slot-Booking/blob/main/readmeSS/userslot.PNG?raw=true) <br/>
