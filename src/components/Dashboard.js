@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-//import PropTypes from 'prop-types';
 import BookSlot from './BookSlot';
 import ViewBookings from './ViewBookings';
 
@@ -23,7 +22,7 @@ export const TabsBtn2 = ({ text }) => {
   );
 }
 
-const Dashboard = () => {
+const Dashboard = ({isAuthenticated, user}) => {
   const[book, setBook] = useState(true);
   const[view, setView] = useState(false);
 

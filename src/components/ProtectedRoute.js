@@ -2,13 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Dashboard from './Dashboard';
+import DashboardRouter from './DashboardRouter';
 
-
-const ProtectedRoute = ({isLoading, isAuthenticated}) => {
-  if (!isAuthenticated){
+const ProtectedRoute = ({isAuthenticated}) => {
+  if (isAuthenticated){
     return(
-      <Route exact path="/dashboard" component={ Dashboard } />
+      <Route exact path="/dashboard" component={ DashboardRouter } />
     );
   }
   else{
@@ -19,11 +18,9 @@ const ProtectedRoute = ({isLoading, isAuthenticated}) => {
 }
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
-  isLoading: state.auth.isLoading,
 });
 
 ProtectedRoute.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
-  isLoading: PropTypes.bool.isRequired,
 }
 export default connect(mapStateToProps)(ProtectedRoute);

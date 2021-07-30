@@ -51,7 +51,7 @@ const Navbar = ({isAuthenticated, user, logoutUser}) => {
               <NavLink className="nav-link" to="/about">About</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/dashboard">Book Slot</NavLink>
+               <NavLink className="nav-link" to="/dashboard">Dashboard</NavLink>
             </li>
           </ul>
           <ul className="navbar-nav mb-2 mb-md-0">

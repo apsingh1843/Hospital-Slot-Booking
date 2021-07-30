@@ -9,10 +9,10 @@ import {
   LOGOUT_SUCCESS,
   AUTH_ERROR
 } from './ActionTypes';
-//import { returnErrors } from './errorActions';
-//import { requestVerify } from './verifyActions';
+import { returnErrorMsg } from './MsgActions';
 
-const auth_server = "http://127.0.0.1:8000/api/auth"
+//const auth_server = "http://127.0.0.1:8000/api/auth";
+const auth_server = "https://hospital-backend-api.herokuapp.com/api/auth";
 
 export const configToken = (getState) =>{
   const token = getState().auth.token;
@@ -56,6 +56,7 @@ export const registerUser = ({username, email, password}) => (dispatch) => {
   }
 
   const body = JSON.stringify({username, email, password});
+  console.log(body);
 
   dispatch({type: USER_LOADING});
 
@@ -67,40 +68,47 @@ export const registerUser = ({username, email, password}) => (dispatch) => {
       });
     })
     .catch(error =>{
-      //dispatch(returnErrors(error.response.data, error.response.status));
+      console.log(error.response);
       dispatch({type: SIGNUP_FAIL});
+      dispatch(returnErrorMsg(error.response.data.msg, "Could not create account.Please try again with valid details."));
     });
 };
 
 //login user
-// export const loginUser = ({email, phone, password}) => (dispatch) => {
-//   //headers
-//   const config={
-//     headers: {
-//       'Content-Type': 'application/json'
-//     }
-//   }
-//   //request body
-//   const body = JSON.stringify({email, phone, password});
-//   dispatch({type: USER_LOADING});
-//
-//   axios.post('https://testapi.etark.in/buszs/login', body, config)
-//     .then(res => {
-//       dispatch({
-//       type: SIGNIN_SUCCESS,
-//       payload: res.data
-//       });
-//     })
-//     .catch(error =>{
-//       dispatch(returnErrors(error.response.data, error.response.status, 'SIGNIN_FAIL'));
-//       dispatch({type: SIGNIN_FAIL});
-//     });
-// };
-//
+export const loginUser = ({username, password}) => (dispatch) => {
+  dispatch({type: USER_LOADING});
+
+  const config={
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }
+  const body = JSON.stringify({username, password});
+
+  axios.post(`${auth_server}/signin/`, body, config)
+    .then(res => {
+      dispatch({
+      type: SIGNIN_SUCCESS,
+      payload: res.data
+      });
+    })
+    .catch(error =>{
+      console.log(error.response)
+      dispatch({type: SIGNIN_FAIL});
+      //dispatch(returnErrorMsg(error.response.data.msg, "Could not Login."));
+    });
+};
+
 
 //logout user
-export const logoutUser = () => {
-  return {
-    type: LOGOUT_SUCCESS
-  };
+export const logoutUser = () => (dispatch, getState) => {
+  axios.post(`${auth_server}/logout/`, null, configToken(getState))
+    .then(res => {
+      dispatch({
+        type: LOGOUT_SUCCESS,
+      });
+    })
+    .catch(error =>{
+      console.log(error.response);
+    });
 };

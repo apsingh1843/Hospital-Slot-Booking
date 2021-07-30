@@ -3,7 +3,8 @@ import axios from 'axios';
 import { configToken } from './AuthActions';
 //import { returnErrors } from './errorActions';
 
-const server = "http://127.0.0.1:8000"
+//const server = "http://127.0.0.1:8000";
+const server = "https://hospital-backend-api.herokuapp.com";
 
 export const getSlots = () => (dispatch, getState) => {
   dispatch(setSlotsLoading());

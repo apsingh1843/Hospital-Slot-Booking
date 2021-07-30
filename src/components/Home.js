@@ -8,6 +8,24 @@ const Home = () => {
     <>
       <div className="container-fluid">
 
+        {/*coming soon model*/}
+        <div className="modal fade" id="comingModal" tabIndex="-1" aria-labelledby="commingModalLabel" aria-hidden="true">
+          <div className="modal-dialog modal-dialog-centered">
+            <div className="modal-content p-2">
+              <div>
+              <button type="button" className="btn-close"
+                data-bs-dismiss="modal" aria-label="Close">
+              </button>
+              </div>
+              <div className="modal-body text-center">
+                <img className="mb-3" src="assets/images/comingsoon.jpg" alt="coming soon" width="150px" height="150px" />
+                <h5>Feature coming soon...</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
         <div className="row text-center">
           <div className="col-12 col-sm-6 col-lg-3 p-4 p-sm-0">
             <div>
@@ -63,7 +81,10 @@ const Home = () => {
             <img className="w-40" src="assets/images/find.png" alt="find" height="200px"/>
             <span>
               <b>Find your Doctor and <br/> book an Appointment</b> <br />
-              <button className="btn btn-warning text-white mt-3" type="button">Find Doctor</button>
+              <button className="btn btn-warning text-white mt-3" type="button"
+                data-bs-toggle="modal" data-bs-target="#comingModal">
+                Find Doctor
+              </button>
             </span>
           </div>
 

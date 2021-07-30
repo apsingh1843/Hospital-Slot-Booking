@@ -4,7 +4,6 @@ import Loader from './Loader';
 import { connect } from 'react-redux';
 import { getBookings, handleRequestCancel } from '../redux/actions/BookingActions';
 
-const server = "http://127.0.0.1:8000"
 
 const BookedAction = ({id, isCompleted, requestCancel, message, handleRequestCancel}) =>{
   const[reqMsg, setReqMsg] = useState('');

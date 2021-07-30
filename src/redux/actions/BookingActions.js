@@ -2,14 +2,13 @@ import {
   GET_BOOKINGS,
   BOOKINGS_LOADING,
   BOOKINGS_FAIL,
-  GET_SUCCESS_MSG,
-  GET_ERROR_MSG
 } from '../actions/ActionTypes';
 import axios from 'axios';
 import { configToken } from './AuthActions';
 import { returnErrorMsg, returnSuccessMsg } from './MsgActions';
 
-const server = "http://127.0.0.1:8000"
+//const server = "http://127.0.0.1:8000";
+const server = "https://hospital-backend-api.herokuapp.com";
 
 // get user bookings
 export const getBookings = () => (dispatch, getState) => {
@@ -17,14 +16,14 @@ export const getBookings = () => (dispatch, getState) => {
 
   axios.get(`${server}/api/bookings/`,configToken(getState))
   .then(res => {
-    console.log(res.data);
+    //console.log(res.data);
     dispatch({
       type: GET_BOOKINGS,
       payload: res.data
     })}
   )
   .catch(error =>{
-    console.log(error.response);
+    //console.log(error.response);
     dispatch({type: BOOKINGS_FAIL});
   });
 };
@@ -44,11 +43,11 @@ export const createBooking = (booking) => (dispatch, getState) => {
 
   axios.post(`${server}/api/bookings/`, body, configToken(getState))
   .then(res => {
-    console.log(res.data);
+    //console.log(res.data);
     dispatch(returnSuccessMsg(res.data.msg, "booking_created"))
   })
   .catch(error =>{
-    console.log(error.response);
+    //console.log(error.response);
     dispatch(returnErrorMsg(error.response.data.msg, "Could not book slot. Please fill the details properly."))
   });
 };
@@ -60,7 +59,7 @@ export const handleRequestCancel = (data) => (dispatch, getState) => {
 
   axios.post(`${server}/api/reqcancel/`, body, configToken(getState))
   .then(res => {
-    console.log(res.data);
+    //console.log(res.data);
     dispatch(getBookings());
   })
   .catch(error =>{
@@ -75,7 +74,7 @@ export const handleResponseCancel = (data) => (dispatch, getState) => {
 
   axios.post(`${server}/api/rescancel/`, body, configToken(getState))
   .then(res => {
-    console.log(res.data);
+    //console.log(res.data);
     dispatch(getBookings());
   })
   .catch(error =>{
@@ -90,7 +89,7 @@ export const markCompleted = (data) => (dispatch, getState) => {
 
   axios.post(`${server}/api/completed/`, body, configToken(getState))
   .then(res => {
-    console.log(res.data);
+    //console.log(res.data);
     dispatch(getBookings());
   })
   .catch(error =>{

@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import Loader from '../Loader';
+import Message from '../Message';
 import { connect } from 'react-redux';
 import { getSlots, createSlots, activateSlots, deactivateSlots } from '../../redux/actions/SlotActions';
+import { returnErrorMsg } from '../../redux/actions/MsgActions';
 
-const ManageSlots = ({getSlots, createSlots, deactivateSlots, activateSlots, isLoading, slots}) => {
+const ManageSlots = ({getSlots, createSlots, deactivateSlots, activateSlots, isLoading, slots, returnErrorMsg}) => {
   const[slotName, setSlotName] = useState('');
   const[startTime, setStartTime] = useState('');
   const[endTime, setEndTime] = useState('');
@@ -15,13 +17,18 @@ const ManageSlots = ({getSlots, createSlots, deactivateSlots, activateSlots, isL
 
   function handleSubmit(e){
     e.preventDefault();
-    let slotData = {
-      name: slotName,
-      startTime: startTime,
-      endTime: endTime
+    if(startTime > endTime){
+      returnErrorMsg("End time cannot be before start time", "Invalid Time");
     }
-    console.log(slotData);
-    createSlots(slotData);
+    else{
+      let slotData = {
+        name: slotName,
+        startTime: startTime,
+        endTime: endTime
+      }
+      console.log(slotData);
+      createSlots(slotData);
+    }
   }
 
 
@@ -82,6 +89,7 @@ const ManageSlots = ({getSlots, createSlots, deactivateSlots, activateSlots, isL
 
         <div className="bg-warning shadow-custom w-75 mx-auto p-4 mb-3" style={{width: "90%"}}>
           <form onSubmit={handleSubmit}>
+            <Message />
             <div className="mb-3">
               <label htmlFor="slotName" className="form-label">Slot Name *</label>
               <input
@@ -132,7 +140,14 @@ const ManageSlots = ({getSlots, createSlots, deactivateSlots, activateSlots, isL
       <div className="col-12 col-md-6 p-3">
         <h4 className="mb-3 text-center">View, Activate and Deactivate Slots</h4>
 
-        <SlotList />
+        {slots.length !== 0 ?
+          <SlotList />
+          :
+          <div className="shadow w-75 rounded bg-light mx-auto text-center text-danger pt-2"
+            style={{height: 50}}>
+            <b>Could not fetch slots.</b>
+          </div>
+        }
       </div>
     </div>
   );
@@ -152,4 +167,4 @@ const mapStateToProps = state => ({
   slots: state.slots.slots,
 });
 
-export default connect(mapStateToProps, { getSlots, createSlots, deactivateSlots, activateSlots })(ManageSlots);
+export default connect(mapStateToProps, { getSlots, createSlots, deactivateSlots, activateSlots, returnErrorMsg })(ManageSlots);

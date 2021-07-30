@@ -2,24 +2,20 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-//import { loginUser } from '../redux/actions/AuthActions';
+import { loginUser } from '../redux/actions/AuthActions';
 
-const Login = ({isLoading, isAuthenticated}) => {
-  const[email, setEmail] = useState('');
+const Login = ({isLoading, user, isAuthenticated, loginUser}) => {
   const[username, setUsername] = useState('');
   const[password, setPassword] = useState('');
 
   const handleSubmit = (e) =>{
     e.preventDefault();
     let user = {
-      email: email,
       username: username,
       password: password
     }
     console.log(user);
-    setEmail('');
-    setPassword('');
-    setUsername('');
+    loginUser(user);
   }
 
   if(isAuthenticated){
@@ -37,15 +33,15 @@ const Login = ({isLoading, isAuthenticated}) => {
             <form onSubmit={handleSubmit}>
 
               <div className="mb-3">
-                <label htmlFor="email" className="form-label">Email address</label>
+                <label htmlFor="username" className="form-label">Username</label>
                 <input
-                  type="email"
-                  placeholder="Enter your Email"
+                  type="text"
+                  placeholder="Enter your username"
                   className="form-control"
-                  id="email"
-                  name="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  id="username"
+                  name="username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                   required
                 />
               </div>
@@ -76,7 +72,7 @@ const Login = ({isLoading, isAuthenticated}) => {
 Login.propTypes = {
   isLoading : PropTypes.bool.isRequired,
   isAuthenticated : PropTypes.bool.isRequired,
-  //loginUser: PropTypes.func.isRequired
+  loginUser: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
@@ -84,4 +80,4 @@ const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps)(Login);
+export default connect(mapStateToProps,{ loginUser })(Login);

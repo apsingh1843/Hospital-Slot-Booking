@@ -30,6 +30,11 @@ const About = () => {
             their exact original form, accompanied by English versions from the
             1914 translation by H. Rackham.
           </p>
+          <h3 className="mt-2 mb-3">Credits :</h3>
+          <p className="mb-3">
+            All the illustrations used on the homepage and coming soon modal are taken
+            from <b><a href="http://www.freepik.com">Freepik</a></b> and are not owned by us.
+          </p>
         </div>
       </div>
     </div>
