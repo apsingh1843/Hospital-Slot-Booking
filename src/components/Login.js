@@ -30,6 +30,9 @@ const Login = ({isLoading, user, isAuthenticated, loginUser}) => {
           <div className="col-10 offset-1 col-md-6 offset-md-3 col-lg-4 offset-lg-4
             p-4 mt-3 mb-3 mt-sm-5 bg-warning shadow-custom">
             <h4 className="text-center mb-3">Login to your Account</h4>
+            <p className="text-center text-success text-bold">
+              Note : Login with admin ID if you are a hospital staff.
+            </p>
             <form onSubmit={handleSubmit}>
 
               <div className="mb-3">

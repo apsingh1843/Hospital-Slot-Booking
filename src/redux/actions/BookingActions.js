@@ -16,14 +16,14 @@ export const getBookings = () => (dispatch, getState) => {
 
   axios.get(`${server}/api/bookings/`,configToken(getState))
   .then(res => {
-    //console.log(res.data);
+    console.log(res.data);
     dispatch({
       type: GET_BOOKINGS,
       payload: res.data
     })}
   )
   .catch(error =>{
-    //console.log(error.response);
+    console.log(error.response);
     dispatch({type: BOOKINGS_FAIL});
   });
 };
@@ -47,7 +47,7 @@ export const createBooking = (booking) => (dispatch, getState) => {
     dispatch(returnSuccessMsg(res.data.msg, "booking_created"))
   })
   .catch(error =>{
-    //console.log(error.response);
+    console.log(error.response);
     dispatch(returnErrorMsg(error.response.data.msg, "Could not book slot. Please fill the details properly."))
   });
 };

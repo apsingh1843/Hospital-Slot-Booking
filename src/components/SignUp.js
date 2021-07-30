@@ -62,6 +62,10 @@ const SignUp = ({isLoading, isAuthenticated, registerUser, returnErrorMsg}) => {
           <div className="col-10 offset-1 col-md-6 offset-md-3 col-lg-4 offset-lg-4
             p-4 mt-3 mb-3 mt-sm-5 bg-warning shadow-custom">
             <h4 className="text-center mb-3">Create your Account</h4>
+            <p className="text-center text-success text-bold">
+              Note : You don't need to register if you are a hospital staff.
+              Login with the admin ID provided by hospital.
+            </p>
             <Message />
             <form onSubmit={handleSubmit}>
 
