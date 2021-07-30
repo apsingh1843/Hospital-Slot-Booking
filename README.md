@@ -9,11 +9,20 @@ There are two types of users : <br /><br />
     <li>Book an appointment</li>
     <li>View their previous bookings</li>
     <li>Request to cancel an appointment by selecting a reason from given choices</li>
-   </ul>
-2) Admin/Staff Users - , ,  and .
+   </ul><br />
+   
+2) Admin/Staff Users - 
    <ul>
     <li>Can view, create, activate and deactivate slots</li>
     <li>View all the bookings made by users</li>
     <li>Respond to user's cancellation requests (Approve or Decline)</li>
     <li>Mark bookings as complete</li>
-   </ul>
+   </ul><br/>
+  
+![Home Page](https://github.com/apsingh1843/Hospital-Slot-Booking/blob/main/readmeSS/home.PNG?raw=true) <br/>
+![Register Page](https://github.com/apsingh1843/Hospital-Slot-Booking/blob/main/readmeSS/register.PNG?raw=true) <br/>
+![Login Page](https://github.com/apsingh1843/Hospital-Slot-Booking/blob/main/readmeSS/login.PNG?raw=true) <br/>
+![Slots](https://github.com/apsingh1843/Hospital-Slot-Booking/blob/main/readmeSS/userslot.PNG?raw=true) <br/>
+![Bookings](https://github.com/apsingh1843/Hospital-Slot-Booking/blob/main/readmeSS/userview.PNG?raw=true) <br/>
+![Admin Slots](https://github.com/apsingh1843/Hospital-Slot-Booking/blob/main/readmeSS/adminslot.PNG?raw=true) <br/>
+![Admin Bookings](https://github.com/apsingh1843/Hospital-Slot-Booking/blob/main/readmeSS/adminview.PNG?raw=true) <br/>
