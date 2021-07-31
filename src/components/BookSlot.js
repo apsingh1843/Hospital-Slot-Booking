@@ -7,7 +7,7 @@ import { getSlots } from '../redux/actions/SlotActions';
 import { createBooking } from '../redux/actions/BookingActions';
 import { returnErrorMsg } from '../redux/actions/MsgActions';
 
-const BookSlot = ({ getSlots, isLoading, slots, createBooking, returnErrorMsg }) => {
+const BookSlot = ({ getSlots, isLoading, isBookingLoading, slots, createBooking, returnErrorMsg }) => {
   const[slotId, setSlotId] = useState('');
   const[slotName, setSlotName] = useState('');
   const[slotTime, setSlotTime] = useState('');
@@ -51,16 +51,6 @@ const BookSlot = ({ getSlots, isLoading, slots, createBooking, returnErrorMsg })
       }
       createBooking(booking);
     }
-
-    //console.log(booking);
-    // setSlotId('');
-    // setSlotName('');
-    // setSlotTime('');
-    // setPatientName('');
-    // setBearerName('');
-    // setPatientAge('');
-    // setMobile('');
-    // setDescription('');
   }
 
   const SelectBtn = ({id, name, makeTime}) =>{
@@ -112,7 +102,7 @@ const BookSlot = ({ getSlots, isLoading, slots, createBooking, returnErrorMsg })
   }
 
   return (
-    <div className="row bg-info">
+    <div className="row bg-info" style={{minHeight: "70vh"}}>
       <div className="col-12 col-md-6 p-3">
         <h3 className="mb-1 text-center">Select a slot from below</h3>
         <h6 className="mb-3 text-center">(Note : The selected slot will be reflected in the form.)</h6>
@@ -234,7 +224,9 @@ const BookSlot = ({ getSlots, isLoading, slots, createBooking, returnErrorMsg })
             <small className="text-muted">' * ' marked fields are required </small><br/>
               <Message />
 
-            <button type="submit" className="btn btn-primary mt-2">Submit</button>
+                {!isBookingLoading ?
+                  <button type="submit" className="btn btn-primary mt-2">Submit</button>
+                : <div className="spinner-border ms-4 text-primary mt-2" role="status"></div>}
           </form>
         </div>
       </div>
@@ -244,6 +236,7 @@ const BookSlot = ({ getSlots, isLoading, slots, createBooking, returnErrorMsg })
 
 BookSlot.propTypes = {
   isLoading : PropTypes.bool.isRequired,
+  isBookingLoading : PropTypes.bool.isRequired,
   slots : PropTypes.array.isRequired,
   getSlots : PropTypes.func.isRequired,
   createBooking : PropTypes.func.isRequired,
@@ -252,6 +245,7 @@ BookSlot.propTypes = {
 
 const mapStateToProps = state => ({
   isLoading: state.slots.isLoading,
+  isBookingLoading: state.bookings.isLoading,
   slots: state.slots.slots,
 });
 

@@ -2,6 +2,7 @@ import {
   GET_BOOKINGS,
   BOOKINGS_LOADING,
   BOOKINGS_FAIL,
+  CREATE_BOOKINGS
 } from '../actions/ActionTypes';
 import axios from 'axios';
 import { configToken } from './AuthActions';
@@ -12,7 +13,7 @@ const server = "https://hospital-backend-api.herokuapp.com";
 
 // get user bookings
 export const getBookings = () => (dispatch, getState) => {
-  dispatch(setBookingsLoading());
+  dispatch({type: BOOKINGS_LOADING});
 
   axios.get(`${server}/api/bookings/`,configToken(getState))
   .then(res => {
@@ -29,25 +30,21 @@ export const getBookings = () => (dispatch, getState) => {
 };
 
 
-export const setBookingsLoading = () => {
-  return {
-    type: BOOKINGS_LOADING
-  };
-};
-
 
 // create booking
 export const createBooking = (booking) => (dispatch, getState) => {
-
+  dispatch({type: BOOKINGS_LOADING});
   const body = JSON.stringify(booking);
 
   axios.post(`${server}/api/bookings/`, body, configToken(getState))
   .then(res => {
     //console.log(res.data);
+    dispatch({type: CREATE_BOOKINGS}); //stop isLoading
     dispatch(returnSuccessMsg(res.data.msg, "booking_created"))
   })
   .catch(error =>{
-    console.log(error.response);
+    //console.log(error.response);
+    dispatch({type: CREATE_BOOKINGS});  //stop isLoading
     dispatch(returnErrorMsg(error.response.data.msg, "Could not book slot. Please fill the details properly."))
   });
 };

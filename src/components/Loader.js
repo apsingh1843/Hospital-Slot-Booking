@@ -10,7 +10,7 @@ const Loader = () => {
         </div>
         <div className="spinner-grow text-warning" role="status">
         </div>
-        </div>
+      </div>
     </div>
   )
 }

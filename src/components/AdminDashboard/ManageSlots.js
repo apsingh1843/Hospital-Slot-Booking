@@ -83,7 +83,7 @@ const ManageSlots = ({getSlots, createSlots, deactivateSlots, activateSlots, isL
   }
 
   return (
-    <div className="row bg-info">
+    <div className="row bg-info" style={{minHeight: "70vh"}}>
       <div className="col-12 col-md-6 p-3">
         <h4 className="mb-3 text-center">Create Slot</h4>
 

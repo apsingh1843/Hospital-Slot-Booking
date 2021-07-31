@@ -48,7 +48,7 @@ export const loadUser = () => (dispatch, getState) => {
 
 //register user
 export const registerUser = ({username, email, password}) => (dispatch) => {
-
+  dispatch({type: USER_LOADING});
   const config={
     headers: {
       'Content-Type': 'application/json'
@@ -56,9 +56,7 @@ export const registerUser = ({username, email, password}) => (dispatch) => {
   }
 
   const body = JSON.stringify({username, email, password});
-  console.log(body);
-
-  dispatch({type: USER_LOADING});
+  //console.log(body);
 
   axios.post(`${auth_server}/register/`, body, config)
     .then(res => {
@@ -102,6 +100,7 @@ export const loginUser = ({username, password}) => (dispatch) => {
 
 //logout user
 export const logoutUser = () => (dispatch, getState) => {
+  dispatch({type: USER_LOADING});
   axios.post(`${auth_server}/logout/`, null, configToken(getState))
     .then(res => {
       dispatch({

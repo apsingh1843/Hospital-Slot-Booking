@@ -130,7 +130,9 @@ const SignUp = ({isLoading, isAuthenticated, registerUser, returnErrorMsg}) => {
                 <label className="form-check-label" htmlFor="check">Accept our Terms and Condition.</label>
               </div>
 
-              <button type="submit" className="btn btn-primary">Register</button>
+              {!isLoading ?
+                <button type="submit" className="btn btn-primary">Register</button>
+              : <div className="spinner-border ms-4 text-primary" role="status"></div>}
             </form>
           </div>
         </div>

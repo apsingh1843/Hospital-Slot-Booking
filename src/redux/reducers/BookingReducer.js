@@ -1,4 +1,4 @@
-import { GET_BOOKINGS, BOOKINGS_LOADING, BOOKINGS_FAIL } from '../actions/ActionTypes';
+import { GET_BOOKINGS, BOOKINGS_LOADING, BOOKINGS_FAIL, CREATE_BOOKINGS } from '../actions/ActionTypes';
 
 const initialState = {
   isLoading: false,
@@ -17,6 +17,11 @@ const BookingReducer = (state=initialState, action) => {
       return {
         ...state,
         isLoading: true,
+      }
+    case CREATE_BOOKINGS:
+      return {
+        ...state,
+        isLoading: false,
       }
     case BOOKINGS_FAIL:
       return {

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { loginUser } from '../redux/actions/AuthActions';
 
-const Login = ({isLoading, user, isAuthenticated, loginUser}) => {
+const Login = ({isLoading, isAuthenticated, loginUser}) => {
   const[username, setUsername] = useState('');
   const[password, setPassword] = useState('');
 
@@ -14,7 +14,7 @@ const Login = ({isLoading, user, isAuthenticated, loginUser}) => {
       username: username,
       password: password
     }
-    console.log(user);
+    //console.log(user);
     loginUser(user);
   }
 
@@ -63,7 +63,9 @@ const Login = ({isLoading, user, isAuthenticated, loginUser}) => {
                 />
               </div>
 
-              <button type="submit" className="btn btn-primary">Login</button>
+              {!isLoading ?
+                <button type="submit" className="btn btn-primary">Login</button>
+              : <div className="spinner-border ms-4 text-primary" role="status"></div>}
             </form>
           </div>
         </div>

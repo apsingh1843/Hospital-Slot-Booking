@@ -4,6 +4,7 @@ export const SLOTS_LOADING = 'SLOTS_LOADING';
 export const SLOTS_FAIL = 'SLOTS_FAIL';
 
 export const GET_BOOKINGS = 'GET_BOOKINGS';
+export const CREATE_BOOKINGS = 'CREATE_BOOKINGS';
 export const BOOKINGS_LOADING = 'BOOKINGS_LOADING';
 export const BOOKINGS_FAIL = 'BOOKINGS_FAIL';
 

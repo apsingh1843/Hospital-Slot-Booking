@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { logoutUser } from '../redux/actions/AuthActions';
 
-const Navbar = ({isAuthenticated, user, logoutUser}) => {
+const Navbar = ({isLoading, isAuthenticated, user, logoutUser}) => {
 
   const AuthLinks = () =>{
     if(!isAuthenticated){
@@ -26,7 +26,9 @@ const Navbar = ({isAuthenticated, user, logoutUser}) => {
             <p className="nav-text text-white me-md-3 pt-md-2">Welcome <b>{user.username}</b> !</p>
           </li>
           <li className="nav-item">
-            <button type="button" className="btn btn-light" onClick={() => logoutUser()}>Logout</button>
+            {!isLoading ?
+              <button type="button" className="btn btn-light" onClick={() => logoutUser()}>Logout</button>
+            : <div className="spinner-grow ms-2 text-light" role="status"></div>}
           </li>
         </>
       );
@@ -64,12 +66,14 @@ const Navbar = ({isAuthenticated, user, logoutUser}) => {
 }
 
 Navbar.propTypes = {
+  isLoading : PropTypes.bool.isRequired,
   isAuthenticated : PropTypes.bool.isRequired,
   user : PropTypes.object,
   logoutUser : PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
+  isLoading: state.auth.isLoading,
   isAuthenticated: state.auth.isAuthenticated,
   user: state.auth.user,
 });
