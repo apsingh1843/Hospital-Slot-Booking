@@ -1,70 +1,45 @@
-# Getting Started with Create React App
+This portal has two parts: <br />
+1) Frontend : React | Redux | Redux Thunk | Bootstrap 5 <br />
+2) Backend : Django | Django Rest Framework | Django Rest Knox (for token authentication) <br /><br />
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+You can visit the website at : <a href="https://hospital-slot-booking.vercel.app/">https://hospital-slot-booking.vercel.app/</a>
 
-## Available Scripts
+There are two types of users : <br /><br />
+1) Normal Users - 
+   <ul>
+    <li>Can create and login with their account</li>
+    <li>Can view slots</li>
+    <li>Book an appointment</li>
+    <li>View their previous bookings</li>
+    <li>Request to cancel an appointment by selecting a reason from given choices</li>
+   </ul><br />
+   
+2) Admin/Staff Users - 
+   <ul>
+    <li>Directly login with the staff ID</li>
+    <li>Can view, create, activate and deactivate slots</li>
+    <li>View all the bookings made by users</li>
+    <li>Respond to user's cancellation requests (Approve or Decline)</li>
+    <li>Mark bookings as complete</li>
+   </ul><br/>
+ 
+ ## Home Page
+<img src="https://github.com/apsingh1843/Hospital-Slot-Booking/blob/main/readmeSS/home.PNG?raw=true" width="800" height="500"> <br/>
 
-In the project directory, you can run:
+## Register Page
+<img src="https://github.com/apsingh1843/Hospital-Slot-Booking/blob/main/readmeSS/register.PNG?raw=true" width="400" height="400"> <br/>
 
-### `yarn start`
+## Login Page
+ <img src="https://github.com/apsingh1843/Hospital-Slot-Booking/blob/main/readmeSS/login.PNG?raw=true" width="400" height="400"><br/>
+ 
+## Normal Users can view slots and book appointments
+<img src="https://github.com/apsingh1843/Hospital-Slot-Booking/blob/main/readmeSS/userslot.PNG?raw=true" width="800" height="500"> <br/>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Normal Users can view their appointments and request to cancel
+![Slots](https://github.com/apsingh1843/Hospital-Slot-Booking/blob/main/readmeSS/userview.PNG?raw=true) <br/>
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Admin can manage slots
+<img src="https://github.com/apsingh1843/Hospital-Slot-Booking/blob/main/readmeSS/adminslot.PNG?raw=true" width="800" height="500"><br/>
 
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Admin can view all the appointments, approve or decline requests and mark appointments as complete
+<img src="https://github.com/apsingh1843/Hospital-Slot-Booking/blob/main/readmeSS/adminview.PNG?raw=true" width="800" height="500">
