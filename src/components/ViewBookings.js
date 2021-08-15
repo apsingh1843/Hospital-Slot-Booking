@@ -115,6 +115,14 @@ const ViewBookings = ({isLoading, bookings, getBookings, handleRequestCancel}) =
         <Loader />
       )
     }
+    else if(!isLoading && bookings.length === 0){
+      return(
+        <div className="shadow w-75 rounded bg-light mx-auto text-center text-primary pt-2"
+          style={{height: 50}}>
+          <b>No bookings to show !</b>
+        </div>
+      )
+    }
     else{
       return(
         <>
@@ -153,14 +161,7 @@ const ViewBookings = ({isLoading, bookings, getBookings, handleRequestCancel}) =
   return (
     <div className="row bg-info p-5" style={{minHeight: "70vh"}}>
       <h2 className="mb-4 text-center">Your Bookings</h2>
-      {bookings.length !== 0 ?
         <BookingList />
-        :
-        <div className="shadow w-75 rounded bg-light mx-auto text-center text-primary pt-2"
-          style={{height: 50}}>
-          <b>No bookings to show !</b>
-        </div>
-      }
     </div>
   )
 }

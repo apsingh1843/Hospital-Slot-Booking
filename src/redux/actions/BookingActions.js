@@ -17,14 +17,32 @@ export const getBookings = () => (dispatch, getState) => {
 
   axios.get(`${server}/api/bookings/`,configToken(getState))
   .then(res => {
-    console.log(res.data);
+    //console.log(res.data);
     dispatch({
       type: GET_BOOKINGS,
       payload: res.data
     })}
   )
   .catch(error =>{
-    console.log(error.response);
+    //console.log(error.response);
+    dispatch({type: BOOKINGS_FAIL});
+  });
+};
+
+// get admin all bookings
+export const getAdminBookings = () => (dispatch, getState) => {
+  dispatch({type: BOOKINGS_LOADING});
+
+  axios.get(`${server}/api/adminbookings/`,configToken(getState))
+  .then(res => {
+    //console.log(res.data);
+    dispatch({
+      type: GET_BOOKINGS,
+      payload: res.data
+    })}
+  )
+  .catch(error =>{
+    //console.log(error.response);
     dispatch({type: BOOKINGS_FAIL});
   });
 };
@@ -72,7 +90,7 @@ export const handleResponseCancel = (data) => (dispatch, getState) => {
   axios.post(`${server}/api/rescancel/`, body, configToken(getState))
   .then(res => {
     //console.log(res.data);
-    dispatch(getBookings());
+    dispatch(getAdminBookings());
   })
   .catch(error =>{
     console.log(error.response);
@@ -87,7 +105,7 @@ export const markCompleted = (data) => (dispatch, getState) => {
   axios.post(`${server}/api/completed/`, body, configToken(getState))
   .then(res => {
     //console.log(res.data);
-    dispatch(getBookings());
+    dispatch(getAdminBookings());
   })
   .catch(error =>{
     console.log(error.response);

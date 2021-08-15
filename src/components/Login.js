@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import Message from './Message';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { loginUser } from '../redux/actions/AuthActions';
@@ -33,6 +34,7 @@ const Login = ({isLoading, isAuthenticated, loginUser}) => {
             <p className="text-center text-success text-bold">
               Note : Login with admin ID if you are a hospital staff.
             </p>
+            <Message />
             <form onSubmit={handleSubmit}>
 
               <div className="mb-3">

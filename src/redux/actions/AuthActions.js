@@ -34,7 +34,7 @@ export const loadUser = () => (dispatch, getState) => {
 
   axios.get(`${auth_server}/user/`, configToken(getState))
     .then(res =>{
-      console.log(res.data);
+      //console.log(res.data);
       dispatch({
         type: USER_LOADED,
         payload: res.data
@@ -66,7 +66,7 @@ export const registerUser = ({username, email, password}) => (dispatch) => {
       });
     })
     .catch(error =>{
-      console.log(error.response);
+      //console.log(error.response);
       dispatch({type: SIGNUP_FAIL});
       dispatch(returnErrorMsg(error.response.data.msg, "Could not create account.Please try again with valid details."));
     });
@@ -93,7 +93,7 @@ export const loginUser = ({username, password}) => (dispatch) => {
     .catch(error =>{
       console.log(error.response)
       dispatch({type: SIGNIN_FAIL});
-      //dispatch(returnErrorMsg(error.response.data.msg, "Could not Login."));
+      dispatch(returnErrorMsg(null, "Could not Login. Make sure you have an account and entering the correct credentials."));
     });
 };
 

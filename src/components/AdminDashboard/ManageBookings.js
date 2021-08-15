@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import Loader from '../Loader';
 import { connect } from 'react-redux';
-import { getBookings, handleResponseCancel, markCompleted } from '../../redux/actions/BookingActions';
+import { getAdminBookings, handleResponseCancel, markCompleted } from '../../redux/actions/BookingActions';
 
 
 const BookedAction = ({id, isCompleted, requestCancel, message, handleResponseCancel, markCompleted}) =>{
@@ -136,15 +136,23 @@ const BookedAction = ({id, isCompleted, requestCancel, message, handleResponseCa
   }
 }
 
-const ManageBookings = ({isLoading, bookings, getBookings, handleResponseCancel, markCompleted}) => {
+const ManageBookings = ({isLoading, bookings, getAdminBookings, handleResponseCancel, markCompleted}) => {
   useEffect(() => {
-    getBookings();
+    getAdminBookings();
   },[]);
 
   const BookingList = () =>{
     if(isLoading){
       return(
         <Loader />
+      )
+    }
+    else if(!isLoading && bookings.length === 0){
+      return(
+        <div className="shadow w-75 rounded bg-light mx-auto text-center text-danger pt-2"
+          style={{height: 50}}>
+          <b>Cannot find any bookings.</b>
+        </div>
       )
     }
     else{
@@ -185,14 +193,7 @@ const ManageBookings = ({isLoading, bookings, getBookings, handleResponseCancel,
   return (
     <div className="row bg-info p-5" style={{minHeight: "70vh"}}>
       <h2 className="mb-2 text-center">All Bookings</h2>
-      {bookings.length !== 0 ?
-        <BookingList />
-        :
-        <div className="shadow w-75 rounded bg-light mx-auto text-center text-danger pt-2"
-          style={{height: 50}}>
-          <b>Cannot find any bookings.</b>
-        </div>
-      }
+      <BookingList />
     </div>
   )
 }
@@ -200,7 +201,7 @@ const ManageBookings = ({isLoading, bookings, getBookings, handleResponseCancel,
 ManageBookings.propTypes = {
   isLoading : PropTypes.bool.isRequired,
   bookings : PropTypes.array.isRequired,
-  getBookings : PropTypes.func.isRequired,
+  getAdminBookings : PropTypes.func.isRequired,
   handleResponseCancel : PropTypes.func.isRequired,
   markCompleted : PropTypes.func.isRequired
 }
@@ -210,4 +211,4 @@ const mapStateToProps = state => ({
   bookings: state.bookings.bookings,
 });
 
-export default connect(mapStateToProps, { getBookings, handleResponseCancel, markCompleted })(ManageBookings);
+export default connect(mapStateToProps, { getAdminBookings, handleResponseCancel, markCompleted })(ManageBookings);
